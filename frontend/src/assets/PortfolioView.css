@@ -1,0 +1,64 @@
+.portfolio-main {
+    max-width: 1000px;
+    margin: 80px auto 2rem;
+    padding: 0 1rem;
+}
+
+.portfolio-main h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.loading {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.portfolio-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.portfolio-table th,
+.portfolio-table td {
+    padding: 0.75rem 1rem;
+    border: 1px solid #e0e0e0;
+    text-align: left;
+}
+
+.portfolio-table th {
+    background: #f5f5f5;
+    font-weight: 600;
+}
+
+.no-data {
+    text-align: center;
+    color: #666;
+}
+
+.total {
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+    gap: 1rem;
+    font-size: 1.2rem;
+}
+
+
+.portfolio-view {
+    font-family: 'Segoe UI', sans-serif;
+    padding-top: 60px;
+    display: flex;
+    height: 100vh;
+}
+
+.portfolio-main{
+    margin-left: 200px;  /* ancho del sidebar */
+    padding-top: 50px;   /* alto del topbar */
+    flex: 1;
+}
