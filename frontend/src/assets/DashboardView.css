@@ -1,193 +1,42 @@
 .dashboard {
-font-family: sans-serif;
-}
-
-.btn-logout {
-background: transparent;
-border: 1px solid #fff;
-color: #fff;
-padding: 0.25rem 0.75rem;
-border-radius: 4px;
-cursor: pointer;
-}
-.btn-history {
-background: #3c97bf;
-color: #fff;
-border: none;
-padding: 0.5rem 1rem;
-margin: 1rem 0;
-border-radius: 4px;
-cursor: pointer;
-}
-.balances-table {
-width: 100%;
-border-collapse: collapse;
-margin-top: 0.5rem;
-}
-.balances-table th,
-.balances-table td {
-padding: 0.75rem;
-border: 1px solid #ddd;
-}
-.btn-action {
-margin-right: 0.5rem;
-padding: 0.3rem 0.6rem;
-background: #ff4b2b;
-color: #fff;
-border: none;
-border-radius: 4px;
-cursor: pointer;
-}
-.modal-backdrop {
-position: fixed;
-top: 0; left: 0; right: 0; bottom: 0;
-background: rgba(0,0,0,0.5);
-display: flex;
-align-items: center;
-justify-content: center;
-}
-.modal {
-background: #fff;
-padding: 1.5rem;
-border-radius: 8px;
-width: 90%;
-max-width: 500px;
-}
-.dashboard {
-padding-top: 60px;
-font-family: 'Segoe UI', sans-serif;
-background: #f9f9f9;
-min-height: 100vh;
-}
-
-.welcome {
-margin-left: 1rem;
-font-weight: 500;
-}
-.btn-logout {
-margin-right: 1rem;
-background: transparent;
-border: 1px solid #fff;
-color: #fff;
-padding: 0.3rem 0.8rem;
-border-radius: 4px;
-cursor: pointer;
-}
-.controls {
-margin: 1rem auto;
-max-width: 1200px;
-text-align: right;
-}
-.btn-history {
-background: #3c97bf;
-color: #fff;
-border: none;
-padding: 0.5rem 1rem;
-border-radius: 4px;
-cursor: pointer;
-}
-.table-container {
-max-width: 1200px;
-margin: 0 auto;
-overflow-x: auto;
-}
-.balances-table {
-width: 100%;
-border-collapse: collapse;
-background: #fff;
-}
-.balances-table th,
-.balances-table td {
-padding: 0.75rem 1rem;
-border: 1px solid #e0e0e0;
-text-align: left;
-}
-.balances-table th {
-background: #fafafa;
-font-weight: 600;
-}
-.btn-action {
-margin-right: 0.5rem;
-padding: 0.3rem 0.7rem;
-background: #ff4b2b;
-color: #fff;
-border: none;
-border-radius: 4px;
-cursor: pointer;
-}
-.btn-action:disabled {
-background: #ccc;
-cursor: not-allowed;
-}
-.modal-backdrop {
-position: fixed;
-top: 0; left: 0; right: 0; bottom: 0;
-background: rgba(0,0,0,0.5);
-display: flex;
-align-items: center;
-justify-content: center;
-}
-.modal-content {
-background: #fff;
-padding: 1.5rem;
-border-radius: 8px;
-width: 90%;
-max-width: 500px;
-}
-
-.dashboard {
+  display: flex;
+  height: 100vh;
   padding-top: 60px;
   font-family: 'Segoe UI', sans-serif;
   background: #f9f9f9;
   min-height: 100vh;
 }
 
-.welcome {
-  margin-left: 1rem;
-  font-weight: 500;
-}
-.btn-logout {
-  margin-right: 1rem;
-  background: transparent;
-  border: 1px solid #fff;
-  color: #fff;
-  padding: 0.3rem 0.8rem;
-  border-radius: 4px;
-  cursor: pointer;
-}
 .controls {
   margin: 1rem auto;
   max-width: 1200px;
   text-align: right;
 }
-.btn-history {
-  background: #3c97bf;
-  color: #fff;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-}
+
 .table-container {
   max-width: 1200px;
   margin: 0 auto;
   overflow-x: auto;
 }
+
 .balances-table {
   width: 100%;
   border-collapse: collapse;
   background: #fff;
 }
+
 .balances-table th,
 .balances-table td {
   padding: 0.75rem 1rem;
   border: 1px solid #e0e0e0;
   text-align: left;
 }
+
 .balances-table th {
   background: #fafafa;
   font-weight: 600;
 }
+
 .btn-action {
   margin-right: 0.5rem;
   padding: 0.3rem 0.7rem;
@@ -197,27 +46,24 @@ max-width: 500px;
   border-radius: 4px;
   cursor: pointer;
 }
+
 .btn-action:disabled {
   background: #ccc;
   cursor: not-allowed;
 }
-.modal-backdrop {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.modal-content {
-  background: #fff;
-  padding: 1.5rem;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 500px;
-}
 
-.dashboard {
+.content {
+  flex: 1;
+  padding: 2rem;
   display: flex;
-  height: 100vh;
+  flex-direction: column;
+  align-items: center;
+}
+.table-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 2rem auto;
+}
+.balances-table {
+  margin: 0 auto;
 }

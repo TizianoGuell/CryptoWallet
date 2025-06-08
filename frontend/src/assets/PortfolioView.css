@@ -43,7 +43,7 @@
 
 .total {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: baseline;
     gap: 1rem;
     font-size: 1.2rem;
@@ -62,3 +62,20 @@
     padding-top: 50px;   /* alto del topbar */
     flex: 1;
 }
+.portfolio-flex {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+}
+.table-wrapper {
+    flex: 1;
+}
+.chart-wrapper {
+    width: 400px;
+    text-align: center;
+}
+.section-title {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+  

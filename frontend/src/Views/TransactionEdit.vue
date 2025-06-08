@@ -21,6 +21,7 @@
         Fecha y Hora:
         <input type="datetime-local" v-model="localDateTime" />
         </label>
+        <br>
         <div class="buttons">
         <button type="submit" class="btn-confirm">Guardar</button>
         <button type="button" @click="$emit('close')" class="btn-cancel">Cancelar</button>

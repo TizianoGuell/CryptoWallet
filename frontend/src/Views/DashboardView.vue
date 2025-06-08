@@ -1,8 +1,8 @@
 <template>
     <div class="dashboard">
-        <sidebar/>
-        <topbar/>
-
+    <Sidebar />
+    <div class="content">
+        <Topbar />
         <!-- Balances Table -->
         <section class="table-container">
         <table class="balances-table">
@@ -30,10 +30,12 @@
             </tbody>
         </table>
         </section>
+    </div>
+    </div>
 
-        <!-- Modal -->
-        <Modal v-if="modal.visible" @close="modal.visible = false">
-        <TransactionForm
+    <!-- Modal outside flex, visible when modal.visible -->
+    <Modal v-if="modal.visible" @close="modal.visible = false">
+    <TransactionForm
         :user-id="user.id"
         :crypto-code="modal.crypto.code"
         :crypto-name="modal.crypto.name"
@@ -41,104 +43,62 @@
         :action="modal.action"
         @done="onDone"
         @close="modal.visible = false"
-        />
+    />
     </Modal>
-    </div>
 </template>
 
 <script setup>
-import { ref, onMounted,defineComponent } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 import Swal from 'sweetalert2'
-import TransactionForm from '../views/TransactionForm.vue'
-import PortfolioView from './PortfolioView.vue'
+
 import Sidebar from '../components/Sidebar.vue'
-import topbar from '../components/Topbar.vue'
+import Topbar from '../components/Topbar.vue'
+import Modal from '../components/Modal.vue'
+import TransactionForm from '../views/TransactionForm.vue'
 
 const router = useRouter()
-const user = ref(JSON.parse(localStorage.getItem('user') || '{}'))
+const user = JSON.parse(localStorage.getItem('user') || 'null')
 
-const cryptos = ref([])
-const balances = ref([])
 const rows = ref([])
-
-
-const modal = ref({ visible: false, action: 'purchase', crypto: {} })
-
-function openModal(action, crypto) {
-  modal.value = { visible: true, action, crypto }
-}
-
-function onDone() {
-  
-  loadData()
-}
+const modal = ref({ visible: false, action: '', crypto: {} })
 
 const fmt = num =>
-new Intl.NumberFormat('es-AR', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 8
-}).format(num)
+    new Intl.NumberFormat('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 8 }).format(num)
 
-// Logout
-function logout() {
-localStorage.removeItem('user')
-router.push({ name: 'Auth' })
-}
-
-// Go to history view
-function goHistory() {
-router.push({ name: 'TransactionsHistory' })
-}
-
-
-// Close modal and refresh table
-async function closeModal() {
-modal.value.visible = false
-await loadData()
-}
-
-// Load all cryptos, balances and prices
+// Load balances and prices
 async function loadData() {
-try {
+    try {
     const { data: cryptosData } = await axios.get('https://localhost:7157/api/cryptocurrencies')
-    cryptos.value = cryptosData
-
-    const { data: balData } = await axios.get(
-    'https://localhost:7157/api/walletbalances',
-    { params: { userId: user.value.id } }
-    )
-    balances.value = balData
+    const { data: balData } = await axios.get('https://localhost:7157/api/walletbalances', { params: { userId: user.id } })
 
     rows.value = await Promise.all(
-    cryptos.value.map(async c => {
-        const bal = balances.value.find(b => b.cryptoCode === c.code)
+        cryptosData.map(async c => {
+        const bal = balData.find(b => b.cryptoCode === c.code)
         let pricePerUnit = null
         try {
-        const resp = await axios.get(
-            'https://localhost:7157/api/transactions/price',
-            { params: { cryptoCode: c.code } }
-        )
-        pricePerUnit = resp.data.pricePerUnit
+            const resp = await axios.get('https://localhost:7157/api/transactions/price', { params: { cryptoCode: c.code } })
+            pricePerUnit = resp.data.pricePerUnit
         } catch {}
-        return {
-        code: c.code,
-        name: c.name,
-        balance: bal ? bal.balance : 0,
-        pricePerUnit
-        }
-    })
+        return { code: c.code, name: c.name, balance: bal ? bal.balance : 0, pricePerUnit }
+        })
     )
-} catch (err) {
-    console.error(err)
+    } catch (err) {
     Swal.fire('Error', 'No se pudo cargar el dashboard', 'error')
+    }
 }
+
+function openModal(action, crypto) {
+    modal.value = { visible: true, action, crypto }
+}
+
+async function onDone() {
+    modal.value.visible = false
+    await loadData()
 }
 
 onMounted(loadData)
 </script>
 
-<style scoped>
-@import "../assets/DashboardView.css";
-</style>
+<style scoped src="../assets/DashboardView.css"></style>
