@@ -1,0 +1,40 @@
+CREATE DATABASE CryptoWallet
+
+CREATE TABLE Users (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    Username VARCHAR(50) NOT NULL UNIQUE,
+    Email VARCHAR(100) NOT NULL UNIQUE,
+    PasswordHash VARCHAR(255) NOT NULL,
+    CreatedAt DATETIME DEFAULT GETDATE()
+);
+
+CREATE TABLE Cryptocurrencies (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    Code VARCHAR(10) NOT NULL UNIQUE, 
+    Name VARCHAR(50) NOT NULL,
+    CreatedAt DATETIME DEFAULT GETDATE()
+);
+
+CREATE TABLE Transactions (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    UserId INT NOT NULL,
+    CryptoId INT NOT NULL,
+    Action VARCHAR(10) CHECK (Action IN ('purchase', 'sale')) NOT NULL,
+    CryptoAmount DECIMAL(18,8) NOT NULL,
+    Money DECIMAL(18,2) NOT NULL,
+    Datetime DATETIME NOT NULL,
+    CreatedAt DATETIME DEFAULT GETDATE(),
+    FOREIGN KEY (UserId) REFERENCES Users(Id),
+    FOREIGN KEY (CryptoId) REFERENCES Cryptocurrencies(Id)
+);
+
+CREATE TABLE WalletBalances (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    UserId INT NOT NULL,
+    CryptoId INT NOT NULL,
+    Balance DECIMAL(18,8) NOT NULL DEFAULT 0,
+    LastUpdated DATETIME DEFAULT GETDATE(),
+    FOREIGN KEY (UserId) REFERENCES Users(Id),
+    FOREIGN KEY (CryptoId) REFERENCES Cryptocurrencies(Id),
+    CONSTRAINT UQ_UserCrypto UNIQUE (UserId, CryptoId)
+);
